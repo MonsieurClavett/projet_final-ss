@@ -1,0 +1,207 @@
+﻿<UserControl x:Class="Final.Views.MeteoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- =========================
+             PANNEAU GAUCHE
+             ========================= -->
+        <Grid Grid.Column="0" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            
+
+            <!-- Liste régions -->
+            <Border Grid.Row="0"
+                    BorderBrush="#CFCFCF"
+                    BorderThickness="1"
+                    Background="White">
+                <ListBox ItemsSource="{Binding Regions}"
+         SelectedItem="{Binding RegionSelectionnee}"
+         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+            </Border>
+
+
+
+            <!-- Form ajout région -->
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+
+                <Grid Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Région :" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Height="24"
+                 Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Grid Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Latitude :" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Height="24"
+                 Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Longitude :" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Height="24"
+                 Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Button Content="+"
+            Width="34"
+            Height="24"
+            HorizontalAlignment="Left"
+            Command="{Binding CommandeAjouter}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- =========================
+             PANNEAU DROIT
+             ========================= -->
+        <Grid Grid.Column="1" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header région -->
+            <Grid Grid.Row="0" Margin="0,6,6,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Mermoz Boabab"
+                               FontSize="20"/>
+                    <TextBlock Text="SN"
+                               FontSize="11"
+                               Foreground="Gray"/>
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        Content="X"
+                        Width="26"
+                        Height="22"
+                        Margin="8,0,0,0"
+                        Command="{Binding CommandeSupprimer}"/>
+            </Grid>
+
+            <!-- Prévisions -->
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+
+                <StackPanel>
+
+                    <!-- Jour simple -->
+                    <Grid Margin="0,8,0,18">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="2023-11-30"
+                                   VerticalAlignment="Center"/>
+
+                        <Border Grid.Column="1"
+                                Width="120"
+                                Height="70">
+                            <Image Stretch="Uniform"
+                                   Source="/assets/weather_placeholder.png"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="Max : 29 °C"/>
+                            <TextBlock Text="Min : 24.3 °C"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Jour sélectionné -->
+                    <Border BorderBrush="#8BB8E8"
+                            BorderThickness="1"
+                            Background="#EAF4FF"
+                            Padding="10"
+                            Margin="0,0,0,18">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="170"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="2023-12-01"
+                                       VerticalAlignment="Center"/>
+
+                            <Border Grid.Column="1"
+                                    Width="120"
+                                    Height="70">
+                                <Image Stretch="Uniform"
+                                       Source="/assets/weather_placeholder.png"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                <TextBlock Text="Max : 28.9 °C"/>
+                                <TextBlock Text="Min : 24.3 °C"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Autre jour -->
+                    <Grid Margin="0,0,0,18">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="2023-12-02"
+                                   VerticalAlignment="Center"/>
+
+                        <Border Grid.Column="1"
+                                Width="120"
+                                Height="70">
+                            <Image Stretch="Uniform"
+                                   Source="/assets/weather_placeholder.png"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="Max : 28.6 °C"/>
+                            <TextBlock Text="Min : 24.8 °C"/>
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

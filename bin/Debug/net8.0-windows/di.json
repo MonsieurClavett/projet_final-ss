@@ -1,0 +1,25 @@
+﻿{
+  "defaultAssembly": "Final",
+  "components": [
+    {
+      "type": "Final.DataService.SqliteMeteoDbContext",
+      "services": [
+        { "type": "Final.DataService.MeteoDbContext" }
+      ],
+      "instanceScope": "single-instance"
+    },
+    {
+      "type": "Final.DataService.Repositories.Database.RegionDatabaseRepository",
+      "services": [
+        { "type": "Final.DataService.Repositories.Interfaces.IRegionRepository" }
+      ]
+    },
+    {
+      "type": "Final.ViewModels.MeteoViewModel"
+    },
+    {
+      "type": "Final.ViewModels.MainViewModel"
+    }
+  ]
+}
+
