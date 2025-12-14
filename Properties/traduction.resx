@@ -159,4 +159,31 @@
   <data name="Annuler" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="Msg_Region_Ajoutee" xml:space="preserve">
+    <value>Région ajoutée!</value>
+  </data>
+  <data name="Msg_Region_Supprimee" xml:space="preserve">
+    <value>Région supprimée.</value>
+  </data>
+  <data name="Msg_Region_Defaut_ImpossibleSupprimer" xml:space="preserve">
+    <value>Impossible de supprimer la région par défaut.</value>
+  </data>
+  <data name="Msg_Titre_Valeurs_Invalides" xml:space="preserve">
+    <value>Valeurs invalides</value>
+  </data>
+  <data name="Msg_Titre_Valeurs_HorsLimite" xml:space="preserve">
+    <value>Valeurs hors limite</value>
+  </data>
+  <data name="Msg_Titre_Action_Refusee" xml:space="preserve">
+    <value>Action refusée</value>
+  </data>
+  <data name="Msg_Titre_Nom_DejaUtilise" xml:space="preserve">
+    <value>Nom déjà utilisé</value>
+  </data>
+  <data name="Msg_Titre_Erreur_BD" xml:space="preserve">
+    <value>Erreur BD</value>
+  </data>
+  <data name="Msg_Token_Invalide" xml:space="preserve">
+    <value>Jeton invalide ou expiré. Veuillez reconfigurer le jeton.</value>
+  </data>
 </root>

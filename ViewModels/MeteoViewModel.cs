@@ -1,5 +1,8 @@
 ﻿using Final.DataService.Repositories.Interfaces;
 using Final.Models;
+using Final.Models.Weatherbit;
+using Final.Services;
+using Final.Services.Interfaces;
 using Final.ViewModels.Commands;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +20,9 @@ namespace Final.ViewModels
     {
         private readonly IRegionRepository _regionRepository;
 
+        private readonly WeatherbitService _weatherbit = new WeatherbitService();
+        public ObservableCollection<WeatherDay> Previsions { get; } = new();
+
         public ObservableCollection<Region> Regions { get; set; }
 
         private Region? _regionSelectionnee;
@@ -28,12 +34,11 @@ namespace Final.ViewModels
                 _regionSelectionnee = value;
                 OnPropertyChanged();
 
-                // Remplir les champs quand on sélectionne
-                Nom = _regionSelectionnee?.Nom ?? "";
-                Latitude = _regionSelectionnee?.Latitude.ToString(CultureInfo.InvariantCulture) ?? "";
-                Longitude = _regionSelectionnee?.Longitude.ToString(CultureInfo.InvariantCulture) ?? "";
+
 
                 ModeAjout = _regionSelectionnee == null;
+
+                _ = ChargerPrevisionsAsync(null);
             }
         }
 
@@ -74,7 +79,7 @@ namespace Final.ViewModels
             _regionRepository = regionRepository;
 
             Regions = new ObservableCollection<Region>(_regionRepository.GetAll());
-            RegionSelectionnee = Regions.FirstOrDefault();
+            RegionSelectionnee = null;
 
             CommandeNouvelleRegion = new RelayCommand(_ => NouvelleRegion(), null);
             CommandeAjouter = new AsyncCommand(AjouterAsync, _ => CanAjouter());
@@ -98,15 +103,19 @@ namespace Final.ViewModels
             // Parse double (accepte virgule ou point)
             if (!TryParseDouble(Latitude, out var lat) || !TryParseDouble(Longitude, out var lon))
             {
-                MessageBox.Show("Latitude/Longitude invalides (ex: 46.57, -72.73).",
-                    "Valeurs invalides", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.traduction.Msg_LatLon_Invalide,
+                Properties.traduction.Msg_Titre_Valeurs_Invalides,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+
                 return;
             }
 
             if (lat < -90 || lat > 90 || lon < -180 || lon > 180)
             {
-                MessageBox.Show("Latitude doit être entre -90 et 90, Longitude entre -180 et 180.",
-                    "Valeurs hors limite", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.traduction.Msg_LatLon_Limites,
+                Properties.traduction.Msg_Titre_Valeurs_HorsLimite,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+
                 return;
             }
 
@@ -146,7 +155,11 @@ namespace Final.ViewModels
                 Latitude = "";
                 Longitude = "";
 
-                MessageBox.Show("Région ajoutée!", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Properties.traduction.Msg_Region_Ajoutee,
+                Properties.traduction.Msg_Titre_Info,
+                MessageBoxButton.OK, MessageBoxImage.Information);
+
+
             }
             catch (DbUpdateException ex)
             {
@@ -155,12 +168,17 @@ namespace Final.ViewModels
                 if (msg.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase) ||
                     msg.Contains("constraint", StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBox.Show("Une région avec ce nom existe déjà.",
-                        "Nom déjà utilisé", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.traduction.Msg_Region_Existe,
+                    Properties.traduction.Msg_Titre_Nom_DejaUtilise,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+
                 }
                 else
                 {
-                    MessageBox.Show(msg, "Erreur BD", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(msg,
+                    Properties.traduction.Msg_Titre_Erreur_BD,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
             }
             catch (Exception ex)
@@ -177,8 +195,10 @@ namespace Final.ViewModels
             // Optionnel: empêcher la suppression du seed
             if (RegionSelectionnee.Id == 1)
             {
-                MessageBox.Show("Impossible de supprimer la région par défaut.",
-                    "Action refusée", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.traduction.Msg_Region_Defaut_ImpossibleSupprimer,
+                Properties.traduction.Msg_Titre_Action_Refusee,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+
                 return;
             }
 
@@ -200,7 +220,10 @@ namespace Final.ViewModels
 
                 Regions.Remove(toDelete);
                 RegionSelectionnee = Regions.FirstOrDefault();
-                MessageBox.Show("Région supprimée.", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Properties.traduction.Msg_Region_Supprimee,
+                Properties.traduction.Msg_Titre_Info,
+                MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
             catch (Exception ex)
             {
@@ -222,5 +245,44 @@ namespace Final.ViewModels
             Regions.Clear();
             foreach (var r in ordered) Regions.Add(r);
         }
+
+        private async Task ChargerPrevisionsAsync(object? _)
+        {
+            if (RegionSelectionnee == null) return;
+
+            var token = Properties.Settings.Default.tokenWeatherbit ?? "";
+            var lang = Properties.Settings.Default.langue ?? "fr-CA";
+            var apiLang = lang.StartsWith("en", StringComparison.OrdinalIgnoreCase) ? "en" : "fr";
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                MessageBox.Show(
+                    Properties.traduction.Msg_Token_Invalide,
+                    Properties.traduction.Msg_Titre_Erreur,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return;
+            }
+
+            try
+            {
+                var jours = await _weatherbit.Get7DaysAsync(RegionSelectionnee, token, apiLang);
+
+                Previsions.Clear();
+                foreach (var j in jours)
+                    Previsions.Add(j);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    Properties.traduction.Msg_Titre_Erreur,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+
     }
 }

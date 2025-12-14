@@ -97,11 +97,14 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    <TextBlock Text="Mermoz Boabab"
-                               FontSize="20"/>
-                    <TextBlock Text="SN"
-                               FontSize="11"
-                               Foreground="Gray"/>
+                    <TextBlock
+        Text="{Binding RegionSelectionnee.Nom}"
+        FontSize="20"/>
+
+                    <TextBlock
+        Text="{Binding RegionSelectionnee.Id}"
+        FontSize="11"
+        Foreground="Gray"/>
                 </StackPanel>
 
                 <Button Grid.Column="1"
@@ -113,95 +116,35 @@
             </Grid>
 
             <!-- Prévisions -->
-            <ScrollViewer Grid.Row="1"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Disabled">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Previsions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#CFCFCF" BorderThickness="1" Padding="10" Margin="0,0,0,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                                    <TextBlock Grid.Column="0" Text="{Binding datetime}" VerticalAlignment="Center"/>
 
-                    <!-- Jour simple -->
-                    <Grid Margin="0,8,0,18">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="170"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="1" Width="60" Height="60"
+         Stretch="Uniform"
+         Source="{Binding weather.IconUrl}" />
 
-                        <TextBlock Grid.Column="0"
-                                   Text="2023-11-30"
-                                   VerticalAlignment="Center"/>
-
-                        <Border Grid.Column="1"
-                                Width="120"
-                                Height="70">
-                            <Image Stretch="Uniform"
-                                   Source="/assets/weather_placeholder.png"/>
-                        </Border>
-
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Text="Max : 29 °C"/>
-                            <TextBlock Text="Min : 24.3 °C"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <!-- Jour sélectionné -->
-                    <Border BorderBrush="#8BB8E8"
-                            BorderThickness="1"
-                            Background="#EAF4FF"
-                            Padding="10"
-                            Margin="0,0,0,18">
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="170"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Grid.Column="0"
-                                       Text="2023-12-01"
-                                       VerticalAlignment="Center"/>
-
-                            <Border Grid.Column="1"
-                                    Width="120"
-                                    Height="70">
-                                <Image Stretch="Uniform"
-                                       Source="/assets/weather_placeholder.png"/>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="{Binding weather.description}" />
+                                        <TextBlock Text="{Binding max_temp, StringFormat=Max : {0} °C}" />
+                                        <TextBlock Text="{Binding min_temp, StringFormat=Min : {0} °C}" />
+                                    </StackPanel>
+                                </Grid>
                             </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                <TextBlock Text="Max : 28.9 °C"/>
-                                <TextBlock Text="Min : 24.3 °C"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- Autre jour -->
-                    <Grid Margin="0,0,0,18">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="170"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0"
-                                   Text="2023-12-02"
-                                   VerticalAlignment="Center"/>
-
-                        <Border Grid.Column="1"
-                                Width="120"
-                                Height="70">
-                            <Image Stretch="Uniform"
-                                   Source="/assets/weather_placeholder.png"/>
-                        </Border>
-
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Text="Max : 28.6 °C"/>
-                            <TextBlock Text="Min : 24.8 °C"/>
-                        </StackPanel>
-                    </Grid>
-
-                </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>

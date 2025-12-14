@@ -142,11 +142,47 @@ namespace Final.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Région ajoutée!.
+        /// </summary>
+        public static string Msg_Region_Ajoutee {
+            get {
+                return ResourceManager.GetString("Msg_Region_Ajoutee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impossible de supprimer la région par défaut..
+        /// </summary>
+        public static string Msg_Region_Defaut_ImpossibleSupprimer {
+            get {
+                return ResourceManager.GetString("Msg_Region_Defaut_ImpossibleSupprimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Une région avec ce nom existe déjà..
         /// </summary>
         public static string Msg_Region_Existe {
             get {
                 return ResourceManager.GetString("Msg_Region_Existe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Région supprimée..
+        /// </summary>
+        public static string Msg_Region_Supprimee {
+            get {
+                return ResourceManager.GetString("Msg_Region_Supprimee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action refusée.
+        /// </summary>
+        public static string Msg_Titre_Action_Refusee {
+            get {
+                return ResourceManager.GetString("Msg_Titre_Action_Refusee", resourceCulture);
             }
         }
         
@@ -160,11 +196,56 @@ namespace Final.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erreur BD.
+        /// </summary>
+        public static string Msg_Titre_Erreur_BD {
+            get {
+                return ResourceManager.GetString("Msg_Titre_Erreur_BD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string Msg_Titre_Info {
             get {
                 return ResourceManager.GetString("Msg_Titre_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom déjà utilisé.
+        /// </summary>
+        public static string Msg_Titre_Nom_DejaUtilise {
+            get {
+                return ResourceManager.GetString("Msg_Titre_Nom_DejaUtilise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valeurs hors limite.
+        /// </summary>
+        public static string Msg_Titre_Valeurs_HorsLimite {
+            get {
+                return ResourceManager.GetString("Msg_Titre_Valeurs_HorsLimite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valeurs invalides.
+        /// </summary>
+        public static string Msg_Titre_Valeurs_Invalides {
+            get {
+                return ResourceManager.GetString("Msg_Titre_Valeurs_Invalides", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jeton invalide ou expiré. Veuillez reconfigurer le jeton..
+        /// </summary>
+        public static string Msg_Token_Invalide {
+            get {
+                return ResourceManager.GetString("Msg_Token_Invalide", resourceCulture);
             }
         }
         

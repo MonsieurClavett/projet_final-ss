@@ -152,3 +152,4 @@ C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\De
 C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\Debug\net8.0-windows\Final.pdb
 C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\Debug\net8.0-windows\Final.genruntimeconfig.cache
 C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\Debug\net8.0-windows\ref\Final.dll
+C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
