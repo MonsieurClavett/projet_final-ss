@@ -1,10 +1,12 @@
-﻿using Final.ViewModels.Commands;
+﻿using Final.Services;
+using Final.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Final.ViewModels.Commands;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Final.ViewModels
@@ -13,27 +15,21 @@ namespace Final.ViewModels
     {
         public Action? RequestClose { get; set; }
 
-        private string _token = string.Empty;
+        public ObservableCollection<string> Langues { get; } =
+            new() { "Français", "English" };
+
+        private string _token = "";
         public string Token
         {
             get => _token;
-            set
-            {
-                _token = value;
-                OnPropertyChanged(nameof(Token));
-            }
+            set { _token = value; OnPropertyChanged(); }
         }
 
-        // (optionnel) langue, comme ton UI
-        private string? _selectedLanguage;
-        public string? SelectedLanguage
+        private string _langueSelectionnee = "Français";
+        public string LangueSelectionnee
         {
-            get => _selectedLanguage;
-            set
-            {
-                _selectedLanguage = value;
-                OnPropertyChanged(nameof(SelectedLanguage));
-            }
+            get => _langueSelectionnee;
+            set { _langueSelectionnee = value; OnPropertyChanged(); }
         }
 
         public ICommand SaveCommand { get; }
@@ -43,22 +39,31 @@ namespace Final.ViewModels
         {
             RequestClose = requestClose;
 
-            SaveCommand = new RelayCommand(Save, null);
-            CancelCommand = new RelayCommand(Cancel, null);
+            // Charger settings
+            Token = Properties.Settings.Default.tokenWeatherbit ?? "";
+            var code = Properties.Settings.Default.langue ?? "fr-CA";
+            LangueSelectionnee = code.StartsWith("en") ? "English" : "Français";
 
-            // TODO plus tard: charger via config service / settings
-            // Token = ...
+            SaveCommand = new RelayCommand(_ => Save(), null);
+            CancelCommand = new RelayCommand(_ => RequestClose?.Invoke(), null);
         }
 
-        private void Save(object? _)
+        private void Save()
         {
-            // TODO plus tard: sauver token/langue via Configuration service
-            RequestClose?.Invoke();
-        }
+            Properties.Settings.Default.tokenWeatherbit = Token?.Trim() ?? "";
+            Properties.Settings.Default.langue = (LangueSelectionnee == "English") ? "en-US" : "fr-CA";
+            Properties.Settings.Default.Save();
 
-        private void Cancel(object? _)
-        {
+            // Appliquer langue tout de suite
+            MessageBox.Show(
+                 "Les paramètres ont été enregistrés.\nRedémarrez l'application pour appliquer la langue.",
+                 "Configuration",
+                 MessageBoxButton.OK,
+                 MessageBoxImage.Information
+             );
+
             RequestClose?.Invoke();
+
         }
     }
 }

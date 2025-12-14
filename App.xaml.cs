@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Configuration;
+using Final.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace Final
             builder.RegisterModule(module);
 
             FournisseurDI.Container = builder.Build();
+
+            LanguageService.ApplyCulture(global::Final.Properties.Settings.Default["langue"]?.ToString());
+
         }
     }
 }

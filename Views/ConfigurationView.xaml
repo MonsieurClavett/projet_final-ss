@@ -4,77 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Final.Views"
+        xmlns:p="clr-namespace:Final.Properties"
         mc:Ignorable="d"
         Title="Configuration" Height="340" Width="280"
         >
     <Grid Margin="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <StackPanel Margin="16">
+            <TextBlock Text="{x:Static p:traduction.Jeton}" />
+            <TextBox Text="{Binding Token, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,12"/>
 
-        <!-- Champs -->
-        <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="0,40,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="120"/>
-            </Grid.ColumnDefinitions>
+            <TextBlock Text="{x:Static p:traduction.Langue}" />
+            <ComboBox ItemsSource="{Binding Langues}"
+              SelectedItem="{Binding LangueSelectionnee}"
+              Margin="0,4,0,12"/>
 
-            <!-- *Langue -->
-            <TextBlock Grid.Row="0" Grid.Column="0"
-                       Text="*Langue :"
-                       Width="90"
-                       TextAlignment="Right"
-                       VerticalAlignment="Center"/>
-
-            <ComboBox Grid.Row="0" Grid.Column="2"
-                      Height="26"
-                      ItemsSource="{Binding Languages}"
-                      SelectedItem="{Binding SelectedLanguage}" />
-
-            <!-- Jeton -->
-            <TextBlock Grid.Row="1" Grid.Column="0"
-                       Text="Jeton :"
-                       Width="90"
-                       TextAlignment="Right"
-                       VerticalAlignment="Center"
-                       Margin="0,18,0,0"/>
-
-            <TextBox Grid.Row="1" Grid.Column="2"
-                     Height="26"
-                     Margin="0,18,0,0"
-                     Text="{Binding Token, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
-
-        <!-- Note -->
-        <TextBlock Grid.Row="2"
-                   Text="Les paramètres marqués d'une * nécessitent&#x0a;un redémarrage de l'application."
-                   TextAlignment="Center"
-                   TextWrapping="Wrap"
-                   Margin="0,0,0,16"
-                   HorizontalAlignment="Center"/>
-
-        <!-- Boutons -->
-        <StackPanel Grid.Row="3"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,12">
-            <Button Content="Sauver"
-                    Width="100"
-                    Height="30"
-                    Margin="0,0,16,0"
-                    Command="{Binding SaveCommand}" />
-            <Button Content="Annuler"
-                    Width="100"
-                    Height="30"
-                    Command="{Binding CancelCommand}" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{x:Static p:traduction.Sauvegarder}" Command="{Binding SaveCommand}" Margin="0,0,8,0"/>
+                <Button Content="{x:Static p:traduction.Annuler}" Command="{Binding CancelCommand}"/>
+            </StackPanel>
         </StackPanel>
+
     </Grid>
 </Window>

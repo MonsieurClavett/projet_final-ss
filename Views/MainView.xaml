@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Final.Views"
         xmlns:viewmodels="clr-namespace:Final.ViewModels"
+        xmlns:p="clr-namespace:Final.Properties"
         xmlns:views="clr-namespace:Final.Views"
         mc:Ignorable="d"
         Title="Météo" Height="500" Width="820">
-
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:MeteoViewModel}">
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            <MenuItem Header="Configuration"
+            <MenuItem Header="{x:Static p:traduction.Menu_Configuration}"
                       Command="{Binding OpenConfigurationWindowCommand}"/>
         </Menu>
 

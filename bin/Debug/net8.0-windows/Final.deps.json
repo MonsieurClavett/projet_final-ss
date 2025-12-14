@@ -18,6 +18,11 @@
         },
         "runtime": {
           "Final.dll": {}
+        },
+        "resources": {
+          "en-US/Final.resources.dll": {
+            "locale": "en-US"
+          }
         }
       },
       "Autofac/9.0.0": {

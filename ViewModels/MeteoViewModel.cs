@@ -116,8 +116,12 @@ namespace Final.ViewModels
 
             if (Regions.Any(r => string.Equals(r.Nom, nomClean, StringComparison.OrdinalIgnoreCase)))
             {
-                MessageBox.Show("Une région avec ce nom existe déjà.",
-                    "Nom déjà utilisé", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    Properties.traduction.Msg_Region_Existe,
+                    Properties.traduction.Msg_Titre_Info,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
@@ -178,9 +182,16 @@ namespace Final.ViewModels
                 return;
             }
 
-            if (MessageBox.Show($"Supprimer '{RegionSelectionnee.Nom}' ?",
-                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+            var question = string.Format(
+                Properties.traduction.Msg_Confirm_SupprimerRegion,
+                RegionSelectionnee!.Nom
+            );
+
+            if (MessageBox.Show(question,Properties.traduction.Msg_Titre_Info,
+                MessageBoxButton.YesNo,MessageBoxImage.Question) != MessageBoxResult.Yes)
+            {
                 return;
+            }
 
             try
             {

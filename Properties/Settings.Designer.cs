@@ -31,5 +31,29 @@ namespace Final.Properties {
                 return ((string)(this["nomBdSqlite"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string tokenWeatherbit {
+            get {
+                return ((string)(this["tokenWeatherbit"]));
+            }
+            set {
+                this["tokenWeatherbit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fr-CA")]
+        public string langue {
+            get {
+                return ((string)(this["langue"]));
+            }
+            set {
+                this["langue"] = value;
+            }
+        }
     }
 }
