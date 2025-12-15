@@ -142,6 +142,15 @@ namespace Final.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nom de region invalide..
+        /// </summary>
+        public static string Msg_Nom_Region_Invalide {
+            get {
+                return ResourceManager.GetString("Msg_Nom_Region_Invalide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Région ajoutée!.
         /// </summary>
         public static string Msg_Region_Ajoutee {

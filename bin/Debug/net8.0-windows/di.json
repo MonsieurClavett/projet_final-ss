@@ -34,6 +34,14 @@
     },
 
     { "type": "Final.ViewModels.MeteoViewModel, Final" },
-    { "type": "Final.ViewModels.MainViewModel, Final" }
+    { "type": "Final.ViewModels.MainViewModel, Final" },
+    {
+      "type": "Final.Services.DialogueService, Final",
+      "services": [
+        { "type": "Final.Services.Interfaces.IDialogueService, Final" }
+      ],
+      "instanceScope": "single-instance"
+    }
+
   ]
 }

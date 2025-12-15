@@ -15,7 +15,6 @@ namespace Final.Services
     {
         private readonly ApiClient _client;
 
-        // EXACTEMENT comme dans l'exemple: on donne la base URL au client
         public WeatherbitService()
         {
             _client = new ApiClient("https://api.weatherbit.io/v2.0");

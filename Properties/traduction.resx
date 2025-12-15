@@ -186,4 +186,7 @@
   <data name="Msg_Token_Invalide" xml:space="preserve">
     <value>Jeton invalide ou expiré. Veuillez reconfigurer le jeton.</value>
   </data>
+  <data name="Msg_Nom_Region_Invalide" xml:space="preserve">
+    <value>Nom de region invalide.</value>
+  </data>
 </root>

@@ -20,7 +20,10 @@ namespace Final.ViewModels
     {
         private readonly IRegionRepository _regionRepository;
 
-        private readonly WeatherbitService _weatherbit = new WeatherbitService();
+        private readonly IWeatherService _weatherService;
+
+        private readonly IDialogueService _dialogue;
+
         public ObservableCollection<WeatherDay> Previsions { get; } = new();
 
         public ObservableCollection<Region> Regions { get; set; }
@@ -74,9 +77,11 @@ namespace Final.ViewModels
         public AsyncCommand CommandeAjouter { get; }
         public AsyncCommand CommandeSupprimer { get; }
 
-        public MeteoViewModel(IRegionRepository regionRepository)
+        public MeteoViewModel(IRegionRepository regionRepository, IWeatherService weatherService, IDialogueService dialogue)
         {
             _regionRepository = regionRepository;
+            _weatherService = weatherService;
+            _dialogue = dialogue;
 
             Regions = new ObservableCollection<Region>(_regionRepository.GetAll());
             RegionSelectionnee = null;
@@ -85,6 +90,7 @@ namespace Final.ViewModels
             CommandeAjouter = new AsyncCommand(AjouterAsync, _ => CanAjouter());
             CommandeSupprimer = new AsyncCommand(SupprimerAsync, _ => RegionSelectionnee != null);
         }
+
 
         private void NouvelleRegion()
         {
@@ -103,18 +109,25 @@ namespace Final.ViewModels
             // Parse double (accepte virgule ou point)
             if (!TryParseDouble(Latitude, out var lat) || !TryParseDouble(Longitude, out var lon))
             {
-                MessageBox.Show(Properties.traduction.Msg_LatLon_Invalide,
-                Properties.traduction.Msg_Titre_Valeurs_Invalides,
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+
+                _dialogue.AfficherMessageAvertissement(
+                    Properties.traduction.Msg_LatLon_Invalide,
+                    Properties.traduction.Msg_Titre_Valeurs_Invalides
+                );
+
 
                 return;
             }
 
             if (lat < -90 || lat > 90 || lon < -180 || lon > 180)
             {
-                MessageBox.Show(Properties.traduction.Msg_LatLon_Limites,
-                Properties.traduction.Msg_Titre_Valeurs_HorsLimite,
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
+                _dialogue.AfficherMessageAvertissement(
+                    Properties.traduction.Msg_LatLon_Limites,
+                    Properties.traduction.Msg_Titre_Valeurs_HorsLimite
+                );
 
                 return;
             }
@@ -123,13 +136,22 @@ namespace Final.ViewModels
 
             var nomClean = (Nom ?? "").Trim();
 
+            if (string.IsNullOrWhiteSpace(nomClean))
+            {
+                _dialogue.AfficherMessageAvertissement(
+                    Properties.traduction.Msg_Nom_Region_Invalide,
+                    Properties.traduction.Msg_Titre_Valeurs_Invalides
+                );
+                return;
+            }
+
             if (Regions.Any(r => string.Equals(r.Nom, nomClean, StringComparison.OrdinalIgnoreCase)))
             {
-                MessageBox.Show(
+
+
+                _dialogue.AfficherMessageAvertissement(
                     Properties.traduction.Msg_Region_Existe,
-                    Properties.traduction.Msg_Titre_Info,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
+                    Properties.traduction.Msg_Titre_Nom_DejaUtilise
                 );
                 return;
             }
@@ -155,9 +177,12 @@ namespace Final.ViewModels
                 Latitude = "";
                 Longitude = "";
 
-                MessageBox.Show(Properties.traduction.Msg_Region_Ajoutee,
-                Properties.traduction.Msg_Titre_Info,
-                MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+                _dialogue.AfficherMessageInfo(
+                    Properties.traduction.Msg_Region_Ajoutee,
+                    Properties.traduction.Msg_Titre_Info
+                );
 
 
             }
@@ -168,22 +193,31 @@ namespace Final.ViewModels
                 if (msg.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase) ||
                     msg.Contains("constraint", StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBox.Show(Properties.traduction.Msg_Region_Existe,
-                    Properties.traduction.Msg_Titre_Nom_DejaUtilise,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
+                    _dialogue.AfficherMessageAvertissement(
+                        Properties.traduction.Msg_Region_Existe,
+                        Properties.traduction.Msg_Titre_Nom_DejaUtilise
+                    );
 
                 }
                 else
                 {
-                    MessageBox.Show(msg,
-                    Properties.traduction.Msg_Titre_Erreur_BD,
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+
+
+                    _dialogue.AfficherMessageErreur(
+                        msg,
+                        Properties.traduction.Msg_Titre_Erreur_BD
+                    );
 
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _dialogue.AfficherMessageErreur(
+                    ex.Message,
+                    Properties.traduction.Msg_Titre_Erreur
+                );
             }
         }
 
@@ -192,12 +226,14 @@ namespace Final.ViewModels
             if (RegionSelectionnee == null)
                 return;
 
-            // Optionnel: empêcher la suppression du seed
             if (RegionSelectionnee.Id == 1)
             {
-                MessageBox.Show(Properties.traduction.Msg_Region_Defaut_ImpossibleSupprimer,
-                Properties.traduction.Msg_Titre_Action_Refusee,
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
+                _dialogue.AfficherMessageAvertissement(
+                    Properties.traduction.Msg_Region_Defaut_ImpossibleSupprimer,
+                    Properties.traduction.Msg_Titre_Action_Refusee
+                );
 
                 return;
             }
@@ -207,8 +243,10 @@ namespace Final.ViewModels
                 RegionSelectionnee!.Nom
             );
 
-            if (MessageBox.Show(question,Properties.traduction.Msg_Titre_Info,
-                MessageBoxButton.YesNo,MessageBoxImage.Question) != MessageBoxResult.Yes)
+            if (_dialogue.PoserQuestion(
+                question,
+                Properties.traduction.Msg_Titre_Info
+            ) == false)
             {
                 return;
             }
@@ -220,14 +258,19 @@ namespace Final.ViewModels
 
                 Regions.Remove(toDelete);
                 RegionSelectionnee = Regions.FirstOrDefault();
-                MessageBox.Show(Properties.traduction.Msg_Region_Supprimee,
-                Properties.traduction.Msg_Titre_Info,
-                MessageBoxButton.OK, MessageBoxImage.Information);
+
+                _dialogue.AfficherMessageInfo(
+                    Properties.traduction.Msg_Region_Supprimee,
+                    Properties.traduction.Msg_Titre_Info
+                );
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                _dialogue.AfficherMessageErreur(
+                    ex.Message,
+                    Properties.traduction.Msg_Titre_Erreur
+                );
             }
         }
 
@@ -256,18 +299,18 @@ namespace Final.ViewModels
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                MessageBox.Show(
+                
+
+                _dialogue.AfficherMessageAvertissement(
                     Properties.traduction.Msg_Token_Invalide,
-                    Properties.traduction.Msg_Titre_Erreur,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
+                    Properties.traduction.Msg_Titre_Erreur
                 );
                 return;
             }
 
             try
             {
-                var jours = await _weatherbit.Get7DaysAsync(RegionSelectionnee, token, apiLang);
+                var jours = await _weatherService.Get7DaysAsync(RegionSelectionnee, token, apiLang);
 
                 Previsions.Clear();
                 foreach (var j in jours)
@@ -276,10 +319,12 @@ namespace Final.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,
-                    Properties.traduction.Msg_Titre_Erreur,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+
+
+                _dialogue.AfficherMessageErreur(
+                    ex.Message,
+                    Properties.traduction.Msg_Titre_Erreur
+                );
             }
         }
 
