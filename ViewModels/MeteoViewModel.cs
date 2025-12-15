@@ -41,7 +41,6 @@ namespace Final.ViewModels
 
                 ModeAjout = _regionSelectionnee == null;
 
-                _ = ChargerPrevisionsAsync(null);
             }
         }
 
@@ -104,7 +103,7 @@ namespace Final.ViewModels
         private bool CanAjouter() => true; // bouton + toujours dispo
 
 
-        private async Task AjouterAsync(object? _)
+        public async Task AjouterAsync(object? _)
         {
             // Parse double (accepte virgule ou point)
             if (!TryParseDouble(Latitude, out var lat) || !TryParseDouble(Longitude, out var lon))
@@ -167,10 +166,8 @@ namespace Final.ViewModels
             {
                 await _regionRepository.AddAsync(region);
 
-                // Ajout en mémoire (UI)
                 Regions.Add(region);
 
-                // Optionnel : garder l’ordre alphabétique
                 ReorderRegions();
 
                 Nom = "";
@@ -221,7 +218,9 @@ namespace Final.ViewModels
             }
         }
 
-        private async Task SupprimerAsync(object? _)
+        public Task ChargerPrevisions() => ChargerPrevisionsAsync(null);
+
+        public async Task SupprimerAsync(object? _)
         {
             if (RegionSelectionnee == null)
                 return;
