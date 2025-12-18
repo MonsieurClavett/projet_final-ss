@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Configuration;
+using Final.DataService;
 using Final.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,11 @@ namespace Final
         {
             base.OnStartup(e);
 
+            using (var db = new SqliteMeteoDbContext())
+            {
+                db.Database.Migrate(); 
+            }
+
             var config = new ConfigurationBuilder();
             config.AddJsonFile("di.json");
 
@@ -32,6 +39,10 @@ namespace Final
 
             LanguageService.ApplyCulture(global::Final.Properties.Settings.Default["langue"]?.ToString());
 
+
+
         }
+
+
     }
 }

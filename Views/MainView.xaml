@@ -8,7 +8,8 @@
         xmlns:p="clr-namespace:Final.Properties"
         xmlns:views="clr-namespace:Final.Views"
         mc:Ignorable="d"
-        Title="Météo" Height="500" Width="820">
+        Title="Météo" Height="500" Width="820"
+        Icon="/assets/soleil.ico">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:MeteoViewModel}">

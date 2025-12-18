@@ -26,6 +26,8 @@ namespace Final.Views
 
             var vm = new ConfigurationViewModel(() => this.Close());
             DataContext = vm;
+
+
         }
     }
 }

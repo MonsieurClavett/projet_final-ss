@@ -15,6 +15,7 @@ namespace Final.ViewModels
     {
         public Action? RequestClose { get; set; }
 
+
         public ObservableCollection<string> Langues { get; } =
             new() { "Français", "English" };
 
@@ -39,7 +40,6 @@ namespace Final.ViewModels
         {
             RequestClose = requestClose;
 
-            // Charger settings
             Token = Properties.Settings.Default.tokenWeatherbit ?? "";
             var code = Properties.Settings.Default.langue ?? "fr-CA";
             LangueSelectionnee = code.StartsWith("en") ? "English" : "Français";
@@ -54,13 +54,6 @@ namespace Final.ViewModels
             Properties.Settings.Default.langue = (LangueSelectionnee == "English") ? "en-US" : "fr-CA";
             Properties.Settings.Default.Save();
 
-            // Appliquer langue tout de suite
-            MessageBox.Show(
-                 "Les paramètres ont été enregistrés.\nRedémarrez l'application pour appliquer la langue.",
-                 "Configuration",
-                 MessageBoxButton.OK,
-                 MessageBoxImage.Information
-             );
 
             RequestClose?.Invoke();
 

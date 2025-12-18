@@ -1,16 +1,7 @@
 ﻿{
   "defaultAssembly": "Final",
   "components": [
-    {
-      "type": "Final.Models.ApiClient, Final",
-      "parameters": [
-        {
-          "name": "urlBaseApi",
-          "value": "https://api.weatherbit.io/v2.0"
-        }
-      ],
-      "instanceScope": "single-instance"
-    },
+    
     {
       "type": "Final.Services.WeatherbitService, Final",
       "services": [

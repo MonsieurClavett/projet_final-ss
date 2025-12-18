@@ -22,8 +22,7 @@ namespace Final.Services
 
         public async Task<List<WeatherDay>> Get7DaysAsync(Region region, string token, string lang)
         {
-            // Weatherbit: forecast daily 16 jours. Nous on demande 7.
-            // lang: "fr" ou "en"
+            
             string lat = region.Latitude.ToString(CultureInfo.InvariantCulture);
             string lon = region.Longitude.ToString(CultureInfo.InvariantCulture);
 
@@ -32,7 +31,6 @@ namespace Final.Services
 
             string json = await _client.RequeteGetAsync(endpoint);
 
-            // Comme dans les notes: {"data":[{...},{...}]}
             JObject jsonObj = JObject.Parse(json);
             JToken? dataToken = jsonObj["data"];
 

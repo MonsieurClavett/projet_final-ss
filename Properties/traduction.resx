@@ -189,4 +189,7 @@
   <data name="Msg_Nom_Region_Invalide" xml:space="preserve">
     <value>Nom de region invalide.</value>
   </data>
+  <data name="Changement_Langue" xml:space="preserve">
+    <value>Changer la langue demande un redémarrage de l'application.</value>
+  </data>
 </root>

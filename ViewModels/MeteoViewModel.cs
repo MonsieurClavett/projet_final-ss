@@ -13,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Final.ViewModels
 {
@@ -40,6 +43,8 @@ namespace Final.ViewModels
 
 
                 ModeAjout = _regionSelectionnee == null;
+                _ = ChargerPrevisionsAsync(null);
+
 
             }
         }
@@ -102,15 +107,29 @@ namespace Final.ViewModels
             ModeAjout = true;
         }
 
-        private bool CanAjouter() => true; // bouton + toujours dispo
+        private bool CanAjouter() => true; 
 
 
         public async Task AjouterAsync(object? _)
         {
-            // Parse double (accepte virgule ou point)
+            
+
+
+
+            var nomClean = (Nom ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(nomClean))
+            {
+                _dialogue.AfficherMessageAvertissement(
+                    Properties.traduction.Msg_Nom_Region_Invalide,
+                    Properties.traduction.Msg_Titre_Valeurs_Invalides
+                );
+                return;
+            }
+
             if (!TryParseDouble(Latitude, out var lat) || !TryParseDouble(Longitude, out var lon))
             {
-                
+
 
                 _dialogue.AfficherMessageAvertissement(
                     Properties.traduction.Msg_LatLon_Invalide,
@@ -130,19 +149,6 @@ namespace Final.ViewModels
                     Properties.traduction.Msg_Titre_Valeurs_HorsLimite
                 );
 
-                return;
-            }
-
-
-
-            var nomClean = (Nom ?? "").Trim();
-
-            if (string.IsNullOrWhiteSpace(nomClean))
-            {
-                _dialogue.AfficherMessageAvertissement(
-                    Properties.traduction.Msg_Nom_Region_Invalide,
-                    Properties.traduction.Msg_Titre_Valeurs_Invalides
-                );
                 return;
             }
 
@@ -278,7 +284,6 @@ namespace Final.ViewModels
         private static bool TryParseDouble(string s, out double value)
         {
             s = (s ?? "").Trim();
-            // accepte virgule ou point
             s = s.Replace(',', '.');
             return double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out value);
         }
@@ -330,6 +335,8 @@ namespace Final.ViewModels
         }
 
         public AsyncCommand CommandeChargerPrevisions { get; }
+
+        
 
 
 

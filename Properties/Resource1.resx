@@ -117,79 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Latitude" xml:space="preserve">
-    <value>Latitude</value>
-  </data>
-  <data name="Longitude" xml:space="preserve">
-    <value>Longitude</value>
-  </data>
-  <data name="Menu_Configuration" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Msg_LatLon_Invalide" xml:space="preserve">
-    <value>Invalid latitude/longitude (e.g., 46.57, -72.73).</value>
-  </data>
-  <data name="Msg_LatLon_Limites" xml:space="preserve">
-    <value>Latitude must be -90..90, Longitude must be -180..180.</value>
-  </data>
-  <data name="Msg_Region_Existe" xml:space="preserve">
-    <value>A region with this name already exists.</value>
-  </data>
-  <data name="Msg_Titre_Erreur" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="Msg_Titre_Info" xml:space="preserve">
-    <value>Information</value>
-  </data>
-  <data name="Region" xml:space="preserve">
-    <value>Region</value>
-  </data>
-  <data name="Msg_Confirm_SupprimerRegion" xml:space="preserve">
-    <value>Delete region “{0}”?</value>
-  </data>
-  <data name="Sauvegarder" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Jeton" xml:space="preserve">
-    <value>Token</value>
-  </data>
-  <data name="Langue" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Annuler" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Msg_Region_Ajoutee" xml:space="preserve">
-    <value>Region added!</value>
-  </data>
-  <data name="Msg_Region_Supprimee" xml:space="preserve">
-    <value>Region deleted.</value>
-  </data>
-  <data name="Msg_Region_Defaut_ImpossibleSupprimer" xml:space="preserve">
-    <value>Cannot delete the default region.</value>
-  </data>
-  <data name="Msg_Titre_Valeurs_Invalides" xml:space="preserve">
-    <value>Invalid values</value>
-  </data>
-  <data name="Msg_Titre_Valeurs_HorsLimite" xml:space="preserve">
-    <value>Out of range</value>
-  </data>
-  <data name="Msg_Titre_Action_Refusee" xml:space="preserve">
-    <value>Action denied</value>
-  </data>
-  <data name="Msg_Titre_Nom_DejaUtilise" xml:space="preserve">
-    <value>Name already used</value>
-  </data>
-  <data name="Msg_Titre_Erreur_BD" xml:space="preserve">
-    <value>Database error</value>
-  </data>
-  <data name="Msg_Token_Invalide" xml:space="preserve">
-    <value>Invalid or expired token. Please set the token again.</value>
-  </data>
-  <data name="Msg_Nom_Region_Invalide" xml:space="preserve">
-    <value>Invalid region name.</value>
-  </data>
-  <data name="Changement_Langue" xml:space="preserve">
-    <value>Changing language requires a restart of the application.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="soleil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\soleil.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

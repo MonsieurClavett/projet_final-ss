@@ -25,16 +25,17 @@ namespace Final.Views
         public MeteoView()
         {
             InitializeComponent();
+
+
         }
 
-        private void RegionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RegionsList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (DataContext is MeteoViewModel vm &&
-                vm.CommandeChargerPrevisions != null &&
-                vm.CommandeChargerPrevisions.CanExecute(null))
+            if (DataContext is MeteoViewModel vm && vm.RegionSelectionnee != null)
             {
                 vm.CommandeChargerPrevisions.Execute(null);
             }
         }
+
     }
 }

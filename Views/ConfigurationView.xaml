@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Final.Views"
         xmlns:p="clr-namespace:Final.Properties"
         mc:Ignorable="d"
-        Title="Configuration" Height="340" Width="280"
+        Title="Configuration" Height="340" Width="680"
+        Icon="/assets/soleil.ico"
         >
     <Grid Margin="12">
         <StackPanel Margin="16">
@@ -17,6 +18,11 @@
             <ComboBox ItemsSource="{Binding Langues}"
               SelectedItem="{Binding LangueSelectionnee}"
               Margin="0,4,0,12"/>
+
+            <TextBlock Text="{x:Static p:traduction.Changement_Langue}" />
+
+
+
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="{x:Static p:traduction.Sauvegarder}" Command="{Binding SaveCommand}" Margin="0,0,8,0"/>

@@ -32,6 +32,7 @@ namespace Final.Models
 
         public async Task<string> RequeteGetAsync(string endpoint)
         {
+
             HttpResponseMessage hrm = await _httpClient.GetAsync(_urlBaseApi + endpoint);
             return await hrm.Content.ReadAsStringAsync();
         }

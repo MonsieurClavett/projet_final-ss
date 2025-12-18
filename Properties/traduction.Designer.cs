@@ -70,6 +70,15 @@ namespace Final.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changer la langue demande un redémarrage de l&apos;application..
+        /// </summary>
+        public static string Changement_Langue {
+            get {
+                return ResourceManager.GetString("Changement_Langue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jeton.
         /// </summary>
         public static string Jeton {
