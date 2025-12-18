@@ -1,20 +1,20 @@
 ﻿Final
-
+1.0.0.0
 
 winexe
 C#
 .cs
-C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\Debug\net8.0-windows\
+c:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\obj\Debug\net8.0-windows\
 Final
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\App.xaml
+c:\Users\alexm\OneDrive\Bureau\All\school\SESSION 5\Sujets speciaux\Final\App.xaml
 4-375181467
 
-32-217460789
+34688008103
 227-133775464
 MainWindow.xaml;Views\ConfigurationView.xaml;Views\MainView.xaml;Views\MeteoView.xaml;
 
-False
+True
 
