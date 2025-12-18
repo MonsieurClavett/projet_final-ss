@@ -30,8 +30,10 @@
                     BorderBrush="#CFCFCF"
                     BorderThickness="1"
                     Background="White">
-                <ListBox ItemsSource="{Binding Regions}"
+                <ListBox x:Name="RegionsList"
+         ItemsSource="{Binding Regions}"
          SelectedItem="{Binding RegionSelectionnee}"
+         SelectionChanged="RegionsList_SelectionChanged"
          ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
             </Border>

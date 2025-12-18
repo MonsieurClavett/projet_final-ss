@@ -88,6 +88,8 @@ namespace Final.ViewModels
             CommandeNouvelleRegion = new RelayCommand(_ => NouvelleRegion(), null);
             CommandeAjouter = new AsyncCommand(AjouterAsync, _ => CanAjouter());
             CommandeSupprimer = new AsyncCommand(SupprimerAsync, _ => RegionSelectionnee != null);
+            CommandeChargerPrevisions = new AsyncCommand(ChargerPrevisionsAsync, _ => RegionSelectionnee != null);
+
         }
 
 
@@ -326,6 +328,9 @@ namespace Final.ViewModels
                 );
             }
         }
+
+        public AsyncCommand CommandeChargerPrevisions { get; }
+
 
 
     }

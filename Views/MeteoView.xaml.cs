@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Final.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Final.Views
         public MeteoView()
         {
             InitializeComponent();
+        }
+
+        private void RegionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is MeteoViewModel vm &&
+                vm.CommandeChargerPrevisions != null &&
+                vm.CommandeChargerPrevisions.CanExecute(null))
+            {
+                vm.CommandeChargerPrevisions.Execute(null);
+            }
         }
     }
 }
